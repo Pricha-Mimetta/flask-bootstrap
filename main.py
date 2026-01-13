@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 
-app = Flask(__name__)
+app = Flask(_name_)
 app.config['SECRET_KEY'] = b'khiopgfdfghj;oioiouiy'
 # app.secret_key = b'khiopgfdfghj;oioiouiy'
 
@@ -14,20 +14,18 @@ cars = [
 def index():
   return render_template('index.html', title='Home Page')
 
-@app.route('/cars', methods=['GET', 'POST'])
+@app.route('/cars',methods=['GET','POST'])
 def show_cars():
   if request.method == 'POST':
-    brand = request.form['brand']
-    # print(brand)
+    brand = request.form['brand'].lower()
+
     tmp_cars = []
     for car in cars:
-      # print(car)
-      if brand in car['brand']:
+      if brand in car['brand'].lower():
         tmp_cars.append(car)
     return render_template('cars/cars.html',
-                         title='Show Cars by Brand Page',
-                         cars=tmp_cars)
-  
+                           title='Show Cars Brand Page',
+                           cars=tmp_cars)
   return render_template('cars/cars.html',
                          title='Show All Cars Page',
                          cars=cars)
